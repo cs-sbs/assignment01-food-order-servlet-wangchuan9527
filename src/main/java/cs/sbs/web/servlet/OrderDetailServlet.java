@@ -14,7 +14,7 @@ public class OrderDetailServlet extends HttpServlet {
 
         String pathInfo = req.getPathInfo();
         if (pathInfo == null || pathInfo.equals("/")) {
-            resp.getWriter().println("Error: order ID is required");
+            resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Order not found");
             return;
         }
 
@@ -23,28 +23,21 @@ public class OrderDetailServlet extends HttpServlet {
         try {
             id = Integer.parseInt(idStr);
         } catch (NumberFormatException e) {
-            resp.getWriter().println("Error: invalid order ID");
+            resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Order not found");
             return;
         }
 
-        Order found = null;
-        for (Order o : OrderCreateServlet.orders) {
-            if (o.getId() == id) {
-                found = o;
-                break;
-            }
-        }
-
-        if (found == null) {
-            resp.getWriter().println("Error: order not found");
+        Order order = Order.findById(id);
+        if (order == null) {
+            resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Order not found");
             return;
         }
 
         resp.getWriter().println("Order Detail");
         resp.getWriter().println();
-        resp.getWriter().println("Order ID: " + found.getId());
-        resp.getWriter().println("Customer: " + found.getCustomer());
-        resp.getWriter().println("Food: " + found.getFood());
-        resp.getWriter().println("Quantity: " + found.getQuantity());
+        resp.getWriter().println("Order ID: " + order.getId());
+        resp.getWriter().println("Customer: " + order.getCustomer());
+        resp.getWriter().println("Food: " + order.getFood());
+        resp.getWriter().println("Quantity: " + order.getQuantity());
     }
 }

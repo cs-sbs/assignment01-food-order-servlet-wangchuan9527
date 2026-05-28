@@ -12,16 +12,16 @@ run_test () {
   fi
 }
 
-run_test test1_menu.sh
-run_test test2_search.sh
-run_test test3_empty_search.sh
-run_test test4_create_order.sh
-run_test test5_missing_param.sh
-run_test test6_invalid_quantity.sh
-run_test test7_order_detail.sh
-run_test test8_order_not_found.sh
-run_test test9_create_then_query.sh
-run_test test10_html_exist.sh
+run_test src/test/test1_menu.sh
+run_test src/test/test2_search.sh
+run_test src/test/test3_empty_search.sh
+run_test src/test/test4_create_order.sh
+run_test src/test/test5_missing_param.sh
+run_test src/test/test6_invalid_quantity.sh
+run_test src/test/test7_order_detail.sh
+run_test src/test/test8_order_not_found.sh
+run_test src/test/test9_create_then_query.sh
+run_test src/test/test10_html_exist.sh
 
 echo "================================="
 echo "TOTAL SCORE: $score / 100"
